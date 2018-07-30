@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learning.mybatis.dao.EmployeeMapper">
+    <resultMap id="BaseResultMap" type="com.learning.mybatis.entity.Employee">
+        <id property="empno" column="empno" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="ename" column="ename" javaType="String" jdbcType="VARCHAR"/>
+        <result property="job" column="job" javaType="String" jdbcType="VARCHAR"/>
+        <result property="hiredate" column="hireDate" javaType="Date" jdbcType="DATE"/>
+        <result property="sal" column="sal" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="comm" column="comm" javaType="Integer" jdbcType="INTEGER"/>
+
+        <association property="mgr" column="mgr" select="com.learning.mybatis.dao.EmployeeMapper.load"/>
+    </resultMap>
+
+
+    <select id="load" resultMap="BaseResultMap">
+        select
+        emp.empno,
+        emp.ename,
+        emp.job,
+        emp.mgr,
+        emp.hiredate,
+        emp.sal,
+        emp.comm,
+        emp.deptno,
+        dept.dname,
+        dept.loc
+        from emp inner join dept on emp.deptno=dept.deptno where empno = #{id}
+    </select>
+
+
+    <select id="loadByDeptId" resultMap="BaseResultMap">
+      select
+        empno,
+        ename,
+        job,
+        mgr,
+        hiredate,
+        sal,
+        comm,
+        deptno
+        from emp where deptno = #{id}
+    </select>
+
+</mapper>

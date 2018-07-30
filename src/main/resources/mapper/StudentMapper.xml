@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learning.mybatis.dao.StudentMapper">
+    <resultMap id="BaseResultMap" type="com.learning.mybatis.entity.Student">
+        <id property="studentId" column="student_id" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
+        <result property="city" column="city" javaType="String" jdbcType="VARCHAR"/>
+        <result property="age" column="age" javaType="Integer" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <delete id="delete">
+        delete from student where student_id=#{id}
+    </delete>
+
+    <select id="load" resultMap="BaseResultMap">
+        select
+            student_id ,
+            `name`,
+            `city`,
+            `age`
+          from student where student_id = #{id}
+    </select>
+
+
+    <insert id="insert" timeout="2" useGeneratedKeys="true" keyProperty="studentId">
+        insert into student (`name`,`city`,`age`)
+        VALUE (#{name},#{city},#{age});
+    </insert>
+</mapper>

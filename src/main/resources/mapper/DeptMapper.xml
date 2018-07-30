@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.learning.mybatis.dao.DeptMapper">
+    <resultMap id="BaseResultMap" type="com.learning.mybatis.entity.Department">
+        <id property="deptno" column="deptno" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="dname" column="dname" javaType="String" jdbcType="VARCHAR"/>
+        <result property="loc" column="loc" javaType="String" jdbcType="VARCHAR"/>
+
+        <collection property="employeeList" column="deptno" select="com.learning.mybatis.dao.EmployeeMapper.loadByDeptId"/>
+    </resultMap>
+
+
+    <select id="load" resultMap="BaseResultMap">
+        select
+            deptno ,
+            dname,
+            loc
+          from dept where deptno = #{id}
+    </select>
+
+</mapper>
