@@ -8,6 +8,22 @@
         <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
         <result property="city" column="city" javaType="String" jdbcType="VARCHAR"/>
         <result property="age" column="age" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="sex" column="sex" javaType="String" jdbcType="VARCHAR"/>
+
+        <discriminator javaType="String" jdbcType="VARCHAR" column="sex">
+            <case value="male" resultMap="MaleResultMap"></case>
+            <case value="female" resultMap="FemaleResultMap"></case>
+        </discriminator>
+    </resultMap>
+
+    <resultMap id="MaleResultMap" type="com.learning.mybatis.entity.MaleStudent" extends="BaseResultMap">
+        <association property="maleStudentHealth"
+                     select="com.learning.mybatis.dao.StudentHealthMapper.loadMaleStudentHealth" column="student_id"/>
+    </resultMap>
+
+    <resultMap id="FemaleResultMap" type="com.learning.mybatis.entity.FemaleStudent" extends="BaseResultMap">
+        <association property="femaleStudentHealth"
+                     select="com.learning.mybatis.dao.StudentHealthMapper.loadFemaleStudentHealth" column="student_id"/>
     </resultMap>
 
     <delete id="delete">
@@ -19,7 +35,8 @@
             student_id ,
             `name`,
             `city`,
-            `age`
+            `age`,
+             sex
           from student where student_id = #{id}
     </select>
 

@@ -7,7 +7,6 @@ import lombok.Data;
  * Created by mengxiangli on 2018/7/24.
  */
 @Data
-@Builder
 public class Student {
     private Integer studentId;
 
@@ -16,4 +15,6 @@ public class Student {
     private String city;
 
     private Integer age;
+
+    private String sex;
 }

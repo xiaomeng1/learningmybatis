@@ -21,7 +21,7 @@ public class DaoTest {
         SqlSession sqlSession = MybatisUtil.openSession();
         StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
 
-        Student load = mapper.load(1);
+        Student load = mapper.load(2);
         System.out.println(load);
         //断言不为空，符合断言不做任何操作
         Assert.assertFalse("结果为空", load == null);
