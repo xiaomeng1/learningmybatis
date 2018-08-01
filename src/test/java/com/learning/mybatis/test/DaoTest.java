@@ -5,6 +5,7 @@ import com.learning.mybatis.dao.EmployeeMapper;
 import com.learning.mybatis.dao.StudentMapper;
 import com.learning.mybatis.entity.Department;
 import com.learning.mybatis.entity.Employee;
+import com.learning.mybatis.entity.FemaleStudent;
 import com.learning.mybatis.entity.Student;
 import com.learning.mybatis.utils.MybatisUtil;
 import org.apache.ibatis.session.SqlSession;
@@ -21,8 +22,8 @@ public class DaoTest {
         SqlSession sqlSession = MybatisUtil.openSession();
         StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
 
-        Student load = mapper.load(2);
-        System.out.println(load);
+        FemaleStudent load =(FemaleStudent) mapper.load(2);
+        load.getFemaleStudentHealth();
         //断言不为空，符合断言不做任何操作
         Assert.assertFalse("结果为空", load == null);
     }
@@ -45,5 +46,32 @@ public class DaoTest {
 
         Department department = mapper.load(10);
         Assert.assertNotNull(department);
+    }
+
+    /**
+     * 测试懒加载 局部 fetchType eager lazy
+     */
+    @Test
+    public void lazyLoading() {
+        SqlSession sqlSession = MybatisUtil.openSession();
+        DeptMapper mapper = sqlSession.getMapper(DeptMapper.class);
+
+        Department department = mapper.load(10);
+        Assert.assertTrue(department.getEmployeeList().size() > 0);
+        Assert.assertTrue(department != null);
+    }
+
+
+
+    /**
+     * 级联加载全部进行映射
+     */
+    @Test
+    public void association() {
+        SqlSession sqlSession = MybatisUtil.openSession();
+        StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
+
+        Student student = mapper.load(2);
+        Assert.assertTrue(student != null);
     }
 }

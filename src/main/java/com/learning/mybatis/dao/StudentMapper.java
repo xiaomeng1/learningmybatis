@@ -15,6 +15,13 @@ public interface StudentMapper {
     Student load(Integer studentId);
 
     /**
+     * 连表进行查询学生信息
+     * @param studentId
+     * @return
+     */
+    Student loadMapping(Integer studentId);
+
+    /**
      * 插入学生信息
      * @param student
      * @return

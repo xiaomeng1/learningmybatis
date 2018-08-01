@@ -8,8 +8,11 @@
         <result property="dname" column="dname" javaType="String" jdbcType="VARCHAR"/>
         <result property="loc" column="loc" javaType="String" jdbcType="VARCHAR"/>
 
-        <collection property="employeeList" column="deptno" select="com.learning.mybatis.dao.EmployeeMapper.loadByDeptId"/>
+        <collection property="employeeList" column="deptno" fetchType="lazy"
+                    select="com.learning.mybatis.dao.EmployeeMapper.loadByDeptId"/>
     </resultMap>
+
+
 
 
     <select id="load" resultMap="BaseResultMap">

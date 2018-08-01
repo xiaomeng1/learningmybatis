@@ -16,6 +16,37 @@
         </discriminator>
     </resultMap>
 
+
+
+    <resultMap id="BaseResultMap2" type="com.learning.mybatis.entity.Student">
+        <id property="studentId" column="student_id" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
+        <result property="city" column="city" javaType="String" jdbcType="VARCHAR"/>
+        <result property="age" column="age" javaType="Integer" jdbcType="INTEGER"/>
+        <result property="sex" column="sex" javaType="String" jdbcType="VARCHAR"/>
+
+        <discriminator javaType="String" jdbcType="VARCHAR" column="sex">
+            <case value="male" resultMap="MaleResultMap2"></case>
+            <case value="female" resultMap="FemaleResultMap2"></case>
+        </discriminator>
+    </resultMap>
+
+    <resultMap id="MaleResultMap2" type="com.learning.mybatis.entity.MaleStudent" extends="BaseResultMap">
+        <association property="maleStudentHealth" column="student_id" javaType="com.learning.mybatis.entity.MaleStudentHealth">
+            <id column="health_id" property="healthId"/>
+            <result property="studentId" column="student_id"/>
+            <result property="prostate" column="prostate"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="FemaleResultMap2" type="com.learning.mybatis.entity.FemaleStudent" extends="BaseResultMap">
+        <association property="femaleStudentHealth" column="student_id" javaType="com.learning.mybatis.entity.FemaleStudentHealth">
+            <id column="health_id" property="healthId"/>
+            <result property="studentId" column="student_id"/>
+            <result property="breast" column="breast"/>
+        </association>
+    </resultMap>
+
     <resultMap id="MaleResultMap" type="com.learning.mybatis.entity.MaleStudent" extends="BaseResultMap">
         <association property="maleStudentHealth"
                      select="com.learning.mybatis.dao.StudentHealthMapper.loadMaleStudentHealth" column="student_id"/>
@@ -38,6 +69,24 @@
             `age`,
              sex
           from student where student_id = #{id}
+    </select>
+
+
+    <select id="loadMapping" resultMap="BaseResultMap2">
+        SELECT
+            st.student_id,
+            st.name,
+            st.city,
+            st.age,
+            st.sex,
+            sh.health_id,
+            sh.prostate,
+            sh.breast
+        FROM
+            student st,
+            student_health sh
+        WHERE
+            st.student_id = sh.student_id;
     </select>
 
 

@@ -6,6 +6,12 @@
 
 <configuration>
     <properties resource="mysql/db.properties"/>
+    <settings>
+        <!-- 开启懒加载 -->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!-- 默认为true的时候按照层级进行加载 -->
+        <setting name="aggressiveLazyLoading" value="false"/>
+    </settings>
 
     <environments default="development">
         <environment id="development">
