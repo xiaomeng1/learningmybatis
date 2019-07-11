@@ -11,4 +11,13 @@ public class ProductBug {
         System.out.println("2222");
         System.out.println("2222");
     }
+
+
+    public static void test() {
+
+        int a;
+        int b;
+        int c;
+
+    }
 }
