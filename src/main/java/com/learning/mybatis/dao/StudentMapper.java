@@ -1,6 +1,9 @@
 package com.learning.mybatis.dao;
 
 import com.learning.mybatis.entity.Student;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * Created by mengxiangli on 2018/7/25.
@@ -35,4 +38,7 @@ public interface StudentMapper {
      * @return
      */
     Integer delete(Integer studentId);
+
+    @Select("select * from student")
+    List<Student> listAll();
 }

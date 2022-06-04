@@ -3,6 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learning.mybatis.dao.StudentMapper">
+    <cache type="org.mybatis.caches.redis.RedisCache" eviction="FIFO" flushInterval="60000" size="512"/>
+
     <resultMap id="BaseResultMap" type="com.learning.mybatis.entity.Student">
         <id property="studentId" column="student_id" javaType="Integer" jdbcType="INTEGER"/>
         <result property="name" column="name" javaType="String" jdbcType="VARCHAR"/>
@@ -57,11 +59,11 @@
                      select="com.learning.mybatis.dao.StudentHealthMapper.loadFemaleStudentHealth" column="student_id"/>
     </resultMap>
 
-    <delete id="delete">
+    <delete id="delete" >
         delete from student where student_id=#{id}
     </delete>
 
-    <select id="load" resultMap="BaseResultMap">
+    <select id="load" resultMap="BaseResultMap" flushCache="false">
         select
             student_id ,
             `name`,

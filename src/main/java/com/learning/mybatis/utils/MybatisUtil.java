@@ -22,8 +22,7 @@ public class MybatisUtil {
     static {
         try {
             Reader reader = Resources.getResourceAsReader("mysql/mybatis-config.xml");
-            Properties properties = new Properties();
-            sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader,properties);
+            sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
         } catch (IOException e) {
             logger.error("初始化配置失败.errorMessage:" + e);
         }
