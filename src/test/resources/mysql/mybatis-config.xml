@@ -15,7 +15,7 @@
         <!-- 关闭二级缓存 -->
         <setting name="cacheEnabled" value="true"/>
         <!-- 使用自定义日志 -->
-        <setting name="logImpl" value="myLogAdapter"/>
+        <setting name="logImpl" value="com.learning.mybatis.log.MyMybatisLog"/>
     </settings>
 
     <typeAliases>

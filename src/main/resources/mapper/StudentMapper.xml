@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.learning.mybatis.dao.StudentMapper">
-    <cache type="org.mybatis.caches.redis.RedisCache" eviction="FIFO" flushInterval="60000" size="512"/>
+    <!--<cache type="org.mybatis.caches.redis.RedisCache" eviction="FIFO" flushInterval="60000" size="512"/>-->
 
     <resultMap id="BaseResultMap" type="com.learning.mybatis.entity.Student">
         <id property="studentId" column="student_id" javaType="Integer" jdbcType="INTEGER"/>
